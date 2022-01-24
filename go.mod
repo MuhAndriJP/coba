@@ -2,9 +2,21 @@ module coba
 
 go 1.17
 
-require github.com/ClickHouse/clickhouse-go v1.5.1
+require github.com/ClickHouse/clickhouse-go v1.5.2
 
-require github.com/cloudflare/golz4 v0.0.0-20150217214814-ef862a3cdc58 // indirect
+require (
+	cloud.google.com/go v0.79.0 // indirect
+	github.com/ClickHouse/clickhouse-go/v2 v2.0.0-beta.2 // indirect
+	github.com/OneOfOne/cmap v0.0.0-20170825200327-ccaef7657ab8 // indirect
+	github.com/buaazp/fasthttprouter v0.1.1 // indirect
+	github.com/cloudflare/golz4 v0.0.0-20150217214814-ef862a3cdc58 // indirect
+	github.com/google/uuid v1.3.0 // indirect
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible // indirect
+	github.com/pierrec/lz4/v4 v4.1.12 // indirect
+	github.com/shopspring/decimal v1.3.1 // indirect
+	github.com/tdewolff/minify v2.3.6+incompatible // indirect
+	github.com/tdewolff/parse v2.3.4+incompatible // indirect
+)
 
 require (
 	github.com/fatih/color v1.13.0 // indirect
@@ -30,7 +42,7 @@ require (
 	github.com/jpillora/overseer v1.1.6
 	github.com/kokizzu/ch-timed-buffer v1.825.1523-0.20210826171319-738868384f38
 	github.com/kokizzu/goproc v1.625.1807
-	github.com/kokizzu/gotro v1.1315.1724
+	github.com/kokizzu/gotro v1.1324.1549
 	github.com/kokizzu/id64 v1.1114.1245
 	github.com/kokizzu/lexid v1.731.230
 	github.com/kpango/fastime v1.0.17
@@ -113,6 +125,7 @@ require (
 	go.opentelemetry.io/proto/otlp v0.9.0 // indirect
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20220114011407-0dd24b26b47d // indirect
+	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/text v0.3.6 // indirect
 	golang.org/x/tools v0.1.7 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
