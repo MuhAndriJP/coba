@@ -36,9 +36,25 @@ func GetGPlusOAuth(host string) *oauth2.Config {
 	return GPLUS_OAUTH_PROVIDERS[host]
 }
 
+type (
+	GetLink_In struct {
+		RequestCommon
+		Host     string
+		Provider string
+	}
+	GetLink_Out struct {
+		ResponseCommon
+		Link string
+	}
+)
+
 const GetLink_Url = `/loginoauth`
 
 func (d *Domain) GetLink(in *GetLink_In) (out *GetLink_Out) {
-
+	if g_provider := GetGPlusOAuth(in.Host); g_provider != nil {
+		out.Link = g_provider.AuthCodeURL(in.Provider)
+	} else {
+		out.SetError(400, "Invalid host for oauth")
+	}
 	return
 }
