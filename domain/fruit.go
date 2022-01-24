@@ -28,7 +28,7 @@ type (
 	}
 )
 
-const FruitList_Url = `/Fruit`
+const FruitList_Url = `/FruitList`
 
 func (d *Domain) FruitList(in *FruitList_In) (out FruitList_Out) {
 	fruit := rqFruit.NewFruits(d.Taran)
