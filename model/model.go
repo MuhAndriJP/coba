@@ -4,6 +4,7 @@ import (
 	"coba/conf"
 	"coba/model/mAuth"
 	"coba/model/mAuth/wcAuth"
+	"coba/model/mFruit"
 	"coba/model/mStore"
 	"coba/model/mStore/wcStore"
 
@@ -28,6 +29,7 @@ func RunMigration() {
 	m.Taran.MigrateTables(mAuth.TarantoolTables)
 	m.Click.MigrateTables(mAuth.ClickhouseTables)
 	m.Taran.MigrateTables(mStore.TarantoolTables)
+	m.Taran.MigrateTables(mFruit.TarantoolTables)
 	//m.Click.MigrateTables(mStore.ClickhouseTables)
 
 	rootUser := wcAuth.NewUsersMutator(m.Taran)

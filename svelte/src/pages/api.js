@@ -1,6 +1,72 @@
 // can be hit using with /api/[ApiName]
-export const LastUpdatedAt = 1638166591
+export const LastUpdatedAt = 1642994008
 export const APIs = {
+	DeleteFruit: {
+		in: {
+			id: '', // uint64
+		}, out: {
+			fruit: {
+				id:  '', // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // bool
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				name:  '', // string
+				description:  '', // string
+			},
+		}, read: [
+		], write: [
+		], stat: [
+		], deps: [
+		], err: []
+	},
+	DeleteFruitProducts: {
+		in: {
+		}, out: {
+		}, read: [
+		], write: [
+			"Fruit.Fruits",
+		], stat: [
+		], deps: [
+		], err: [
+			[404, "Fruit id not found on database"],
+			[500, "Failed to update fruit"],
+		]
+	},
+	FruitProducts: {
+		in: {
+			limit: 0, // uint32
+			offset: 0, // uint32
+		}, out: {
+			limit: 0, // uint32
+			offset: 0, // uint32
+			total: 0, // uint32
+			products: [{
+				id:  '', // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // bool
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				name:  '', // string
+				description:  '', // string
+			}],
+		}, read: [
+			"Fruit.Fruits",
+		], write: [
+		], stat: [
+		], deps: [
+		], err: []
+	},
 	Health: {
 		in: {
 		}, out: {
@@ -9,6 +75,82 @@ export const APIs = {
 		], stat: [
 		], deps: [
 		], err: []
+	},
+	InsertFruit: {
+		in: {
+			name: '', // string
+			description: '', // string
+		}, out: {
+			fruit: {
+				id:  '', // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // bool
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				name:  '', // string
+				description:  '', // string
+			},
+		}, read: [
+		], write: [
+		], stat: [
+		], deps: [
+		], err: []
+	},
+	InsertFruitProducts: {
+		in: {
+		}, out: {
+		}, read: [
+		], write: [
+			"Fruit.Fruits",
+		], stat: [
+		], deps: [
+		], err: [
+			[400, "Description must be filled"],
+			[400, "Name must be at least 3 character"],
+			[500, "Failed to insert fruit"],
+		]
+	},
+	RestoreFruit: {
+		in: {
+			id: 0, // uint64
+		}, out: {
+			fruit: {
+				id:  '', // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // bool
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				name:  '', // string
+				description:  '', // string
+			},
+		}, read: [
+		], write: [
+		], stat: [
+		], deps: [
+		], err: []
+	},
+	RestoreFruitProducts: {
+		in: {
+		}, out: {
+		}, read: [
+		], write: [
+			"Fruit.Fruits",
+		], stat: [
+		], deps: [
+		], err: [
+			[404, "Fruit id not found on database"],
+			[500, "Failed to restore fruit"],
+		]
 	},
 	StoreCartItemsAdd: {
 		in: {
@@ -162,6 +304,47 @@ export const APIs = {
 		], stat: [
 		], deps: [
 		], err: []
+	},
+	UpdateFruit: {
+		in: {
+			id: '', // uint64
+			name: '', // string
+			description: '', // string
+		}, out: {
+			fruit: {
+				id:  '', // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // bool
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				name:  '', // string
+				description:  '', // string
+			},
+		}, read: [
+		], write: [
+		], stat: [
+		], deps: [
+		], err: []
+	},
+	UpdateFruitProducts: {
+		in: {
+		}, out: {
+		}, read: [
+		], write: [
+			"Fruit.Fruits",
+		], stat: [
+		], deps: [
+		], err: [
+			[400, "Description must be filled"],
+			[400, "Name must be at least 3 character"],
+			[404, "Fruit id not found on database"],
+			[500, "Failed to update fruit"],
+		]
 	},
 	UserChangeEmail: {
 		in: {

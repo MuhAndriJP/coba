@@ -1,4 +1,4 @@
-package mStore
+package mFruit
 
 import "testing"
 

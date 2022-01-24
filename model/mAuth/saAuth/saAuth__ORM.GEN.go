@@ -3,8 +3,8 @@ package saAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
 
 import (
-	"database/sql"
 	"coba/model/mAuth"
+	"database/sql"
 	"time"
 
 	_ "github.com/ClickHouse/clickhouse-go"
