@@ -9,6 +9,26 @@ import (
 func TestFruit(t *testing.T) {
 	d := NewDomain()
 	var idFruit uint64
+	t.Run(`fruit name less than 3 character must error`, func(t *testing.T) {
+		in := &InsertFruit_In{
+			Name:        "ap",
+			Description: "deskripsi",
+		}
+		out := d.InsertFruit(in)
+		idFruit = out.Fruit.Id
+		assert.NotEmpty(t, out.Error)
+		assert.Empty(t, out.Fruit.Id)
+		assert.Equal(t, out.StatusCode, 400)
+	})
+	t.Run(`insert fail fruit description must be filled`, func(t *testing.T) {
+		in := &InsertFruit_In{
+			Name:        "apple",
+			Description: "",
+		}
+		out := d.InsertFruit(in)
+		idFruit = out.Fruit.Id
+		assert.NotEmpty(t, out.Error, "Description must be filled")
+	})
 	t.Run(`add fruit`, func(t *testing.T) {
 		in := &InsertFruit_In{
 			Name:        "apple",
@@ -29,6 +49,33 @@ func TestFruit(t *testing.T) {
 		assert.Empty(t, out.Error)
 		assert.Equal(t, out.Total, uint32(1))
 		assert.Equal(t, out.Fruits[0].Name, "apple")
+	})
+	t.Run(`update fruit id not found`, func(t *testing.T) {
+		in := &UpdateFruit_In{
+			Id:          idFruit + 1,
+			Name:        "pisang",
+			Description: "deskripsi",
+		}
+		out := d.UpdateFruit(in)
+		assert.NotEmpty(t, out.Error, "Fruit id not found on database")
+	})
+	t.Run(`update fruit failed name must be at least 3 character`, func(t *testing.T) {
+		in := &UpdateFruit_In{
+			Id:          idFruit,
+			Name:        "pi",
+			Description: "deskripsi",
+		}
+		out := d.UpdateFruit(in)
+		assert.NotEmpty(t, out.Error, "Name must be at least 3 character")
+	})
+	t.Run(`update fruit failed description must be filled`, func(t *testing.T) {
+		in := &UpdateFruit_In{
+			Id:          idFruit,
+			Name:        "pisang",
+			Description: "",
+		}
+		out := d.UpdateFruit(in)
+		assert.NotEmpty(t, out.Error, "Description must be filled")
 	})
 	t.Run(`update fruit`, func(t *testing.T) {
 		in := &UpdateFruit_In{
@@ -51,6 +98,13 @@ func TestFruit(t *testing.T) {
 		assert.Equal(t, out.Total, uint32(1))
 		assert.Equal(t, out.Fruits[0].Name, "pisang")
 	})
+	t.Run(`delete fruit id not found in database`, func(t *testing.T) {
+		in := &DeleteFruit_In{
+			Id: idFruit + 1,
+		}
+		out := d.DeleteFruit(in)
+		assert.NotEmpty(t, out.Error, "Fruit id not found on database")
+	})
 	t.Run(`delete fruit`, func(t *testing.T) {
 		in := &DeleteFruit_In{
 			Id: idFruit,
@@ -66,5 +120,28 @@ func TestFruit(t *testing.T) {
 		out := d.FruitList(in)
 		assert.Empty(t, out.Error)
 		assert.Equal(t, out.Fruits[0].IsDeleted, true)
+	})
+	t.Run(`restore fruit id not found`, func(t *testing.T) {
+		in := &RestoreFruit_In{
+			Id: idFruit + 1,
+		}
+		out := d.RestoreFruit(in)
+		assert.NotEmpty(t, out.Error, "Fruit id not found on database")
+	})
+	t.Run(`restore fruit`, func(t *testing.T) {
+		in := &RestoreFruit_In{
+			Id: idFruit,
+		}
+		out := d.RestoreFruit(in)
+		assert.Empty(t, out.Error)
+		assert.Equal(t, out.Fruit.IsDeleted, false)
+	})
+	t.Run(`list fruit should contain isDeleted fruit false`, func(t *testing.T) {
+		in := &FruitList_In{
+			Limit: 10,
+		}
+		out := d.FruitList(in)
+		assert.Empty(t, out.Error)
+		assert.Equal(t, out.Fruits[0].IsDeleted, false)
 	})
 }

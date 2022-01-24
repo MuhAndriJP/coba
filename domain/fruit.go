@@ -64,9 +64,10 @@ func (d *Domain) DeleteFruit(in *DeleteFruit_In) (out DeleteFruit_Out) {
 	fruit.SetIsDeleted(true)
 	fruit.SetUpdatedAt(in.UnixNow())
 	if !fruit.DoUpdateById() {
-		out.SetError(500, "Failed to update fruit")
+		out.SetError(500, "Failed to delete fruit")
 		return
 	}
+	out.Fruit = fruit.Fruits
 	return
 }
 
